@@ -1,24 +1,54 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import Board from './components/Board';
+import Header from './components/Header';
+import Keyboard from './components/Keyboard';
+//import { BoardData } from './Wordle';
+
+export enum State {
+  Unknown = 0,
+  Wrong = 1,
+  Guess = 2,
+  Correct = 3
+}
+
+export class GuessData {
+  word : string;
+  state : State;
+  
+  constructor(){
+      this.word = "";
+      this.state = State.Unknown;
+  }
+}
+
+export interface IBoardData {
+  guesses : GuessData[];
+}
+
+export class BoardData implements IBoardData {
+  guesses : GuessData[] = [];
+  index : number = 0;
+
+  constructor() {    
+    this.guesses.push(new GuessData());
+    this.guesses.push(new GuessData());
+    this.guesses.push(new GuessData());
+    this.guesses.push(new GuessData());
+    this.guesses.push(new GuessData());
+    this.guesses.push(new GuessData());
+  }
+}
 
 function App() {
+  const [word, setWord] = useState("");
+  const [board, setBoard] = useState<IBoardData>(new BoardData());
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <Header />
+      <Board guesses={board.guesses}/>
+      <Keyboard/>
     </div>
   );
 }
