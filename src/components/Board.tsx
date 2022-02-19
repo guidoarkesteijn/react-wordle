@@ -9,7 +9,7 @@ interface IProps {
 const Board : React.FC<IProps> = ({board}) => {
     return <section>
         {board.guesses.map(function (value : GuessData, index : number) {
-            return <Row key={index} index={index} word={value.word}/>
+            return <Row key={index} guess={value}/>
         })}
     </section>
 }

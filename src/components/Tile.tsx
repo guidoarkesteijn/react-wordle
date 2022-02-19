@@ -8,7 +8,7 @@ interface IProps {
 }
 
 const Tile : React.FC<IProps> = (props : IProps) => {
-    return <div className={"tile " + props.state}><div className="letter">{props.letter}</div></div>;
+    return <div className={"tile " + props.state}>{props.letter}</div>;
 }
 
 export default Tile;

@@ -13,30 +13,76 @@ export enum State {
   Correct = "correct"
 }
 
-export class GuessData {
+export class LetterData {
   index : number;
-  word : string;
-  
-  constructor(index : number, word? : string){
-    this.index = index;
-    this.word = word !== undefined ? word : "";
+  letter : string;
+  state : State;
+
+  constructor(index : number, letter : string, state : State) {
+    this.index = index;  
+    this.letter = letter;
+    this.state = state;
+  }
+}
+
+export class GuessData {
+  get word() : string {
+    let word = "";
+    for (let index = 0; index < this.letters.length; index++) {
+      const element = this.letters[index];
+      word += element.letter;
+    }
+    return word;
   }
 
-  public updateWord(word : string) {
-    this.word = word;
+  index : number;
+  letters : LetterData[] = [];
+  
+  constructor(index : number, word? : string, letters? : LetterData[]){
+    this.index = index;
+
+    this.letters.push(new LetterData(0, "", State.Unknown));
+    this.letters.push(new LetterData(1, "", State.Unknown));
+    this.letters.push(new LetterData(2, "", State.Unknown));
+    this.letters.push(new LetterData(3, "", State.Unknown));
+    this.letters.push(new LetterData(4, "", State.Unknown));
+
+    if(word !== undefined)
+    {
+      for (let index = 0; index < word.length; index++) {
+        const letter = word[index];
+        let state = State.Unknown;
+        if(letters !== undefined && index < letters.length)
+        {
+          this.letters[index] = letters[index];
+        }
+        else if(letter !== "")
+        {
+          state = State.Active;
+          this.letters[index] = new LetterData(index, letter, state);
+        }
+      }
+    }
+  }
+
+  getState(index : number) : State {
+    return this.letters[index].state;
   }
 }
 
 export class BoardData {
   guesses : GuessData[] = [];
-  index : number = 0;
+  index : number;
   update : ((guess : GuessData) => void) | null = null;
-  
+  answer : string;
+
   get current() : GuessData {
     return  this.guesses[this.index];
   }
 
-  constructor(tries : number, guesses? : GuessData[]) {
+  constructor(answer : string, tries : number, index : number, guesses? : GuessData[]) {
+    this.index = index;
+    this.answer = answer;
     if(guesses !== undefined) {
       this.guesses = guesses;
       return;
@@ -49,8 +95,8 @@ export class BoardData {
   public keyPressed(key : string) {
     if(this.current.word.length < 5)
     {
-      this.current.word += key;
-      let newGuess = new GuessData(this.current.index, this.current.word);
+      let newWord = this.current.word + key.toLowerCase();
+      let newGuess = new GuessData(this.current.index, newWord);
       this.trySend(newGuess);
     }
   }
@@ -64,13 +110,51 @@ export class BoardData {
     }
   }
   
-  public submit() {
+  public submit() : {correct : boolean, letters? : LetterData[]} {
     if(this.current.word.length < 5)
     {
+      let correct : boolean = false;
       console.log("Too short");
-      return;
+      return {correct};
     }
+
     console.log("Submit");
+
+    const data = this.checkWord(this.answer, this.current.word);
+    const guessData = new GuessData(this.index, this.current.word, data.letters);
+
+    if(!data.correct)
+    {
+      this.index++;
+    }
+    this.trySend(guessData);
+
+    return data;
+  }
+
+  checkWord(answer : string, word : string) : {correct : boolean, letters : LetterData[]} {
+    let correct = true;
+    let letters : LetterData[] = [];
+
+    for (let index = 0; index < word.length; index++) {
+      if(answer[index] === word[index])
+      {
+        letters[index] = new LetterData(index, word[index], State.Correct);
+      }
+      else if(answer.includes(word[index]))
+      {
+        correct = false;
+        // TODO add multiple of the same character.
+        letters[index] = new LetterData(index, word[index], State.Location);
+      }
+      else
+      {
+        correct = false;
+        letters[index] = new LetterData(index, word[index], State.Wrong);
+      }
+    }
+
+    return {correct, letters};
   }
 
   getGuess() : GuessData {
@@ -85,7 +169,8 @@ export class BoardData {
 }
 
 function App() {
-  const [board, setBoard] = useState<BoardData>(new BoardData(6));
+  const answer : string = "guido";
+  const [board, setBoard] = useState<BoardData>(new BoardData(answer, 6, 0));
 
   board.update = update;
 
@@ -98,14 +183,18 @@ function App() {
   }
 
   function submit() {
-    board.submit();
+    const data = board.submit();
+    if(data.correct){
+      console.log("WIN");
+    }
   }
 
   function update(guess : GuessData)
   {
     let guesses = board.guesses;
+    const current = board.index;
     guesses[guess.index] = guess;
-    let newBoard : BoardData = new BoardData(-1, guesses);
+    let newBoard : BoardData = new BoardData(answer, -1, current, guesses);
     setBoard(newBoard);
   }
 

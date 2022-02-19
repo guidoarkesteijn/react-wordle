@@ -1,6 +1,7 @@
 /* Default mode */
 :root {
   font-family: 'Roboto';
+  font-size: var(--font-size);
   text-transform: uppercase;
   --body-bg: hsl(210, 17%, 82%);
   --body-color: hsl(216, 28%, 7%);
@@ -12,20 +13,20 @@
   --color-key: hsl(200, 1%, 51%);
   --color-key-hover: hsl(180, 0%, 40%);
 
-  --border-width: 0.12em;
+  --font-size: 16px;
+  --border-width: 0.05em;
 }
 
 /* Dark mode */
 @media (prefers-color-scheme: dark) {
 :root {
       --body-bg: hsl(216, 28%, 7%);
-      --body-color: hsl(210, 17%, 82%);
+      --body-color: hsl(210, 17%, 90%);
   }
 }
 
 body {
   margin: 0;
-  font-family: 'Roboto';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--body-bg);
