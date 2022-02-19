@@ -1,10 +1,14 @@
-import React from "react";
-import { GuessData, IBoardData } from "../App";
+import React, { useState } from "react";
+import { BoardData, GuessData } from "../App";
 import Row from "./Row";
 
-const Board : React.FC<IBoardData> = ({guesses}) => {
+interface IProps {
+    board : BoardData;
+}
+
+const Board : React.FC<IProps> = ({board}) => {
     return <section>
-        {guesses.map(function (value : GuessData, index : number) {
+        {board.guesses.map(function (value : GuessData, index : number) {
             return <Row key={index} index={index} word={value.word}/>
         })}
     </section>

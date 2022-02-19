@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Board from './components/Board';
 import Header from './components/Header';
@@ -6,49 +6,108 @@ import Keyboard from './components/Keyboard';
 //import { BoardData } from './Wordle';
 
 export enum State {
-  Unknown = 0,
-  Wrong = 1,
-  Guess = 2,
-  Correct = 3
+  Unknown = "",
+  Active = "active",
+  Wrong = "wrong",
+  Location = "location",
+  Correct = "correct"
 }
 
 export class GuessData {
+  index : number;
   word : string;
-  state : State;
   
-  constructor(){
-      this.word = "";
-      this.state = State.Unknown;
+  constructor(index : number, word? : string){
+    this.index = index;
+    this.word = word !== undefined ? word : "";
+  }
+
+  public updateWord(word : string) {
+    this.word = word;
   }
 }
 
-export interface IBoardData {
-  guesses : GuessData[];
-}
-
-export class BoardData implements IBoardData {
+export class BoardData {
   guesses : GuessData[] = [];
   index : number = 0;
+  update : ((guess : GuessData) => void) | null = null;
 
-  constructor() {    
-    this.guesses.push(new GuessData());
-    this.guesses.push(new GuessData());
-    this.guesses.push(new GuessData());
-    this.guesses.push(new GuessData());
-    this.guesses.push(new GuessData());
-    this.guesses.push(new GuessData());
+  constructor(tries : number, guesses? : GuessData[]) {
+    if(guesses !== undefined) {
+      this.guesses = guesses;
+      return;
+    }
+    for (let index = 0; index < tries; index++) {
+      this.guesses.push(new GuessData(index));
+    };
+  }
+
+  public keyPressed(key : string) {
+    let current : GuessData = this.getGuess();
+    if(current.word.length < 5)
+    {
+      current.word += key;
+      let newGuess = new GuessData(current.index, current.word);
+      this.trySend(newGuess);
+    }
+  }
+
+  public backspacePressed() {
+    console.log(typeof(this));
+    let current : GuessData = this.getGuess();
+    if(current.word.length > 0)
+    {
+        let newWord = current.word.substring(0, current.word.length - 1);
+        let guess : GuessData = new GuessData(current.index, newWord);
+        this.trySend(guess);
+    }
+  }
+  
+  public submit() {
+    console.log("Submit");
+  }
+
+  getGuess() : GuessData {
+    return this.guesses[this.index];
+  }
+
+  trySend(current : GuessData) {
+    if(this.update !== null){
+      this.update(current);
+    }
   }
 }
 
 function App() {
-  const [word, setWord] = useState("");
-  const [board, setBoard] = useState<IBoardData>(new BoardData());
+  const [board, setBoard] = useState<BoardData>(new BoardData(6));
+
+  board.update = update;
+
+  function keyPressed(key : string){
+    board.keyPressed(key);
+  }
+
+  function backspacePressed() {
+    board.backspacePressed();
+  }
+
+  function submit() {
+    board.submit();
+  }
+
+  function update(guess : GuessData)
+  {
+    let guesses = board.guesses;
+    guesses[guess.index] = guess;
+    let newBoard : BoardData = new BoardData(-1, guesses);
+    setBoard(newBoard);
+  }
 
   return (
     <div className="container">
       <Header />
-      <Board guesses={board.guesses}/>
-      <Keyboard/>
+      <Board board={board}/>
+      <Keyboard keyPressed={keyPressed} backspacePressed={backspacePressed} submit={submit} />
     </div>
   );
 }

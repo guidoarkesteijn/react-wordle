@@ -27,6 +27,25 @@ section {
   align-items: center;
 }
 
+.tile.active {
+  border: 0.12em solid hsl(0deg 0% 49%);
+}
+
+.tile.location {
+  background-color: #ffc8008a;
+  border: 0.12em solid hsl(0deg 0% 49%);
+}
+
+.tile.wrong {
+  background-color: #52525273;
+  border: 0.12em solid hsl(0deg 0% 49%);
+}
+
+.tile.correct {
+  border: 0.12em solid hsl(0deg 0% 49%);
+  background-color: #00800063;
+}
+
 .letter {
   font-size: 2.5em;
   user-select: none;
