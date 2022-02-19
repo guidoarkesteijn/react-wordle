@@ -4,7 +4,7 @@ import Key from "./Key";
 interface IProps{
     keyPressed : (key : string) => void;
     backspacePressed : () => void;
-    submit : () => void;
+    submitPressed : () => void;
 }
 
 class Keyboard extends React.Component<IProps> {
@@ -23,7 +23,7 @@ class Keyboard extends React.Component<IProps> {
         }
         else if(event.key === 'Enter')
         {
-            this.props.submit();
+            this.props.submitPressed();
         }
         else if(event.key.match(/[a-z]/) && event.key.length == 1)
         {
@@ -31,8 +31,43 @@ class Keyboard extends React.Component<IProps> {
         }
     };
 
-    render(): React.ReactNode {
-        return <Key />
+    render() {
+        return <div className="keyboard">
+            <div className="keyboard-row">
+                <Key letter="Q" keyPressed={this.props.keyPressed}/>
+                <Key letter="W" keyPressed={this.props.keyPressed}/>
+                <Key letter="E" keyPressed={this.props.keyPressed}/>
+                <Key letter="R" keyPressed={this.props.keyPressed}/>
+                <Key letter="T" keyPressed={this.props.keyPressed}/>
+                <Key letter="Y" keyPressed={this.props.keyPressed}/>
+                <Key letter="U" keyPressed={this.props.keyPressed}/>
+                <Key letter="I" keyPressed={this.props.keyPressed}/>
+                <Key letter="O" keyPressed={this.props.keyPressed}/>
+                <Key letter="P" keyPressed={this.props.keyPressed}/>
+            </div>
+            <div className="keyboard-row">
+                <Key letter="A" keyPressed={this.props.keyPressed}/>
+                <Key letter="S" keyPressed={this.props.keyPressed}/>
+                <Key letter="D" keyPressed={this.props.keyPressed}/>
+                <Key letter="F" keyPressed={this.props.keyPressed}/>
+                <Key letter="G" keyPressed={this.props.keyPressed}/>
+                <Key letter="H" keyPressed={this.props.keyPressed}/>
+                <Key letter="J" keyPressed={this.props.keyPressed}/>
+                <Key letter="K" keyPressed={this.props.keyPressed}/>
+                <Key letter="L" keyPressed={this.props.keyPressed}/>
+            </div>
+            <div className="keyboard-row">
+                <Key letter="<-" backspacePressed={this.props.backspacePressed}/>
+                <Key letter="Z" keyPressed={this.props.keyPressed}/>
+                <Key letter="Z" keyPressed={this.props.keyPressed}/>
+                <Key letter="X" keyPressed={this.props.keyPressed}/>
+                <Key letter="C" keyPressed={this.props.keyPressed}/>
+                <Key letter="V" keyPressed={this.props.keyPressed}/>
+                <Key letter="B" keyPressed={this.props.keyPressed}/>
+                <Key letter="N" keyPressed={this.props.keyPressed}/>
+                <Key letter="Enter" submitPressed={this.props.submitPressed}/>
+            </div>
+        </div>
     }
 }
 

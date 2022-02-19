@@ -31,6 +31,10 @@ export class BoardData {
   guesses : GuessData[] = [];
   index : number = 0;
   update : ((guess : GuessData) => void) | null = null;
+  
+  get current() : GuessData {
+    return  this.guesses[this.index];
+  }
 
   constructor(tries : number, guesses? : GuessData[]) {
     if(guesses !== undefined) {
@@ -43,27 +47,29 @@ export class BoardData {
   }
 
   public keyPressed(key : string) {
-    let current : GuessData = this.getGuess();
-    if(current.word.length < 5)
+    if(this.current.word.length < 5)
     {
-      current.word += key;
-      let newGuess = new GuessData(current.index, current.word);
+      this.current.word += key;
+      let newGuess = new GuessData(this.current.index, this.current.word);
       this.trySend(newGuess);
     }
   }
 
   public backspacePressed() {
-    console.log(typeof(this));
-    let current : GuessData = this.getGuess();
-    if(current.word.length > 0)
+    if(this.current.word.length > 0)
     {
-        let newWord = current.word.substring(0, current.word.length - 1);
-        let guess : GuessData = new GuessData(current.index, newWord);
+        let newWord = this.current.word.substring(0, this.current.word.length - 1);
+        let guess : GuessData = new GuessData(this.current.index, newWord);
         this.trySend(guess);
     }
   }
   
   public submit() {
+    if(this.current.word.length < 5)
+    {
+      console.log("Too short");
+      return;
+    }
     console.log("Submit");
   }
 
@@ -107,7 +113,7 @@ function App() {
     <div className="container">
       <Header />
       <Board board={board}/>
-      <Keyboard keyPressed={keyPressed} backspacePressed={backspacePressed} submit={submit} />
+      <Keyboard keyPressed={keyPressed} backspacePressed={backspacePressed} submitPressed={submit} />
     </div>
   );
 }
