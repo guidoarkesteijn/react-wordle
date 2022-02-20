@@ -10,6 +10,7 @@ section {
   display: flex;
   flex-direction: column;
   gap: 1em;
+  position: relative;
 }
 
 .row {
@@ -27,7 +28,7 @@ section {
   justify-content: center;
   align-items: center;
   user-select: none;
-  transition: transform 250ms linear;
+  transition: trannpmform 250ms linear;
 }
 
 .tile.active {
@@ -101,4 +102,40 @@ section {
 
 .key:active {
   background-color: hsl(0, 0%, 95%);
+}
+
+.notifications {
+  position:absolute;
+  top: 0; 
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top:1em;
+  gap: 1em;
+  width: 100%;
+}
+
+.notification {
+  padding:1.5em;
+  background-color: gray;
+  border-radius: 0.5em;
+  text-align: center;
+  position: relative;
+  min-width: 25%;
+  max-width: 75%;
+}
+
+.button {
+  position: absolute;
+  top:0.5em;
+  right:0.5em;
+  cursor: pointer;
+}
+
+.button:hover {
+  color: aqua;
+}
+
+.button:active {
+  color:black;
 }

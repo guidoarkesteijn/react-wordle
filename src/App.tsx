@@ -3,7 +3,8 @@ import './App.css';
 import Board from './components/Board';
 import Header from './components/Header';
 import Keyboard from './components/Keyboard';
-//import { BoardData } from './Wordle';
+import { NotificationData, NotificationType } from './components/Notifications';
+import dictionary from './words.json';
 
 export enum State {
   Unknown = "",
@@ -74,6 +75,7 @@ export class BoardData {
   guesses : GuessData[] = [];
   index : number;
   update : ((guess : GuessData) => void) | null = null;
+  wrong : (() => void) | null = null;
   answer : string;
 
   get current() : GuessData {
@@ -97,7 +99,7 @@ export class BoardData {
     {
       let newWord = this.current.word + key.toLowerCase();
       let newGuess = new GuessData(this.current.index, newWord);
-      this.trySend(newGuess);
+      this.trySendUpdate(newGuess);
     }
   }
 
@@ -106,7 +108,7 @@ export class BoardData {
     {
         let newWord = this.current.word.substring(0, this.current.word.length - 1);
         let guess : GuessData = new GuessData(this.current.index, newWord);
-        this.trySend(guess);
+        this.trySendUpdate(guess);
     }
   }
   
@@ -115,6 +117,7 @@ export class BoardData {
     {
       let correct : boolean = false;
       console.log("Too short");
+      this.trySendWrong();
       return {correct};
     }
 
@@ -127,7 +130,7 @@ export class BoardData {
     {
       this.index++;
     }
-    this.trySend(guessData);
+    this.trySendUpdate(guessData);
 
     return data;
   }
@@ -178,32 +181,73 @@ export class BoardData {
     return this.guesses[this.index];
   }
 
-  trySend(current : GuessData) {
+  trySendUpdate(current : GuessData) {
     if(this.update !== null){
       this.update(current);
     }
   }
+  
+  trySendWrong() {
+    if(this.wrong !== null){
+      this.wrong();
+    }
+  }
 }
-
+const answer : string = dictionary.puzzle_words[Math.floor(Math.random() * dictionary.puzzle_words.length)]
+  
 function App() {
-  const answer : string = "gggdo";
   const [board, setBoard] = useState<BoardData>(new BoardData(answer, 6, 0));
+  const [notifications, setNotifications] = useState<NotificationData[]>([]);
+  const [interactable, setInteraction] = useState(true);
 
   board.update = update;
+  board.wrong = wrong;
+
+  function wrong() {
+    const _list = notifications.slice();
+    _list.push( new NotificationData("Woord niet lang genoeg.", NotificationType.Error));
+    setNotifications(_list);
+  }
+
+  function deleteNotification(index : number){
+    let nots : NotificationData[] = notifications.slice();
+    nots.splice(index, 1);
+    setNotifications(nots);
+  }
 
   function keyPressed(key : string){
+    if(!interactable)
+    {
+      return;
+    }
+
     board.keyPressed(key);
   }
 
   function backspacePressed() {
+    if(!interactable)
+    {
+      return;
+    }
+
     board.backspacePressed();
   }
 
   function submit() {
+    if(!interactable)
+    {
+      return;
+    }
+    
+    setInteraction(false);
     const data = board.submit();
     if(data.correct){
-      console.log("WIN");
+      let _list : NotificationData[] = [];
+      _list.push(new NotificationData("WIN!", NotificationType.Success));
+      setNotifications(_list);
     }
+
+    setInteraction(true);
   }
 
   function update(guess : GuessData)
@@ -218,7 +262,7 @@ function App() {
   return (
     <div className="container">
       <Header />
-      <Board board={board}/>
+      <Board board={board} notifications={notifications} deleteNotification={deleteNotification} />
       <Keyboard keyPressed={keyPressed} backspacePressed={backspacePressed} submitPressed={submit} />
     </div>
   );

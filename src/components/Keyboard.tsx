@@ -25,7 +25,7 @@ class Keyboard extends React.Component<IProps> {
         {
             this.props.submitPressed();
         }
-        else if(event.key.match(/[aA-zZ]/) && event.key.length == 1)
+        else if(event.key.match(/[a-z,A-Z]/) && event.key.length == 1)
         {
             this.props.keyPressed(event.key);
         }
