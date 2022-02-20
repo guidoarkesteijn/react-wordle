@@ -1,6 +1,6 @@
 /* Default mode */
 :root {
-  font-family: 'Roboto';
+  font-family: 'Roboto', sans-serif;
   font-size: var(--font-size);
   text-transform: uppercase;
   --body-bg: hsl(210, 17%, 82%);
