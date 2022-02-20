@@ -263,7 +263,7 @@ function App() {
     }
     if(data.gameover) {
       let _list : NotificationData[] = [];
-      _list.push(new NotificationData("Verloren! \nAntwoord: " + answer, NotificationType.Error));
+      _list.push(new NotificationData("Verloren!\nAntwoord: " + answer, NotificationType.Error));
       setNotifications(_list);
       return;
     }
