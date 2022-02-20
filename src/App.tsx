@@ -135,16 +135,33 @@ export class BoardData {
   checkWord(answer : string, word : string) : {correct : boolean, letters : LetterData[]} {
     let correct = true;
     let letters : LetterData[] = [];
+    let indexes : number[] = [];
 
     for (let index = 0; index < word.length; index++) {
       if(answer[index] === word[index])
       {
         letters[index] = new LetterData(index, word[index], State.Correct);
+        indexes.push(index);
       }
-      else if(answer.includes(word[index]))
+    }
+
+    let rest = "";
+    for (let index = 0; index < answer.length; index++) {
+      if(!indexes.includes(index))
       {
+        rest += answer[index];
+      }
+    }
+
+    for (let index = 0; index < word.length; index++) {
+      if(indexes.includes(index)) {
+        continue;
+      }
+      const location = rest.indexOf(word[index]);
+      if(location > -1)
+      {
+        rest = rest.replace(word[index], "");
         correct = false;
-        // TODO add multiple of the same character.
         letters[index] = new LetterData(index, word[index], State.Location);
       }
       else
@@ -169,7 +186,7 @@ export class BoardData {
 }
 
 function App() {
-  const answer : string = "guido";
+  const answer : string = "gggdo";
   const [board, setBoard] = useState<BoardData>(new BoardData(answer, 6, 0));
 
   board.update = update;

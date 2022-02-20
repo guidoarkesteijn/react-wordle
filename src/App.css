@@ -27,6 +27,7 @@ section {
   justify-content: center;
   align-items: center;
   user-select: none;
+  transition: transform 250ms linear;
 }
 
 .tile.active {
@@ -46,6 +47,10 @@ section {
 .tile.correct {
   border: var(--border-width) solid var(--color-border-active);
   background-color: var(--color-correct);
+}
+
+.tile.flip {
+  transform: rotateX(90deg);
 }
 
 .keyboard {
