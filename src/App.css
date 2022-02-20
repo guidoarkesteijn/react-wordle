@@ -57,14 +57,14 @@ section {
 .keyboard {
   display: flex;
   flex-direction: column;
-  gap: 0.5em;
+  gap: 0.3em;
   margin: 1em;
 }
 
 .keyboard-row {
   display:flex;
   justify-content: center;
-  gap: 0.5em;
+  gap: 0.3em;
 }
 
 .key {
