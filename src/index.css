@@ -1,7 +1,6 @@
 /* Default mode */
 :root {
   font-family: 'Roboto', sans-serif;
-  font-size: var(--font-size);
   text-transform: uppercase;
   --body-bg: hsl(210, 17%, 82%);
   --body-color: hsl(216, 28%, 7%);
@@ -15,7 +14,6 @@
   --color-notification-type-error: rgb(180, 34, 34);
   --color-notification-type-success: var(--color-correct);
 
-  --font-size: 16px;
   --border-width: 0.05em;
 }
 
@@ -33,6 +31,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--body-bg);
   color: var(--body-color);
+  font-size: clamp(.5rem, 2.5vmin, 1rem);
 }
 
 code {
