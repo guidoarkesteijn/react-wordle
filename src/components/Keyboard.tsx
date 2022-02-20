@@ -59,12 +59,12 @@ class Keyboard extends React.Component<IProps> {
             <div className="keyboard-row">
                 <Key letter="<-" backspacePressed={this.props.backspacePressed}/>
                 <Key letter="Z" keyPressed={this.props.keyPressed}/>
-                <Key letter="Z" keyPressed={this.props.keyPressed}/>
                 <Key letter="X" keyPressed={this.props.keyPressed}/>
                 <Key letter="C" keyPressed={this.props.keyPressed}/>
                 <Key letter="V" keyPressed={this.props.keyPressed}/>
                 <Key letter="B" keyPressed={this.props.keyPressed}/>
                 <Key letter="N" keyPressed={this.props.keyPressed}/>
+                <Key letter="M" keyPressed={this.props.keyPressed}/>
                 <Key letter="Enter" submitPressed={this.props.submitPressed}/>
             </div>
         </div>
