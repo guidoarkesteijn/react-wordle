@@ -28,7 +28,7 @@ section {
   justify-content: center;
   align-items: center;
   user-select: none;
-  transition: trannpmform 250ms linear;
+  transition: transform 250ms linear;
 }
 
 .tile.active {
@@ -123,6 +123,14 @@ section {
   position: relative;
   min-width: 25%;
   max-width: 75%;
+}
+
+.notification.error {
+  background-color: var(--color-notification-type-error);
+}
+
+.notification.success {
+  background-color: var(--color-notification-type-success);
 }
 
 .button {

@@ -10,7 +10,7 @@ interface IProps {
 class Notification extends React.Component<IProps> {
     
     render(): React.ReactNode { 
-        return <div className="notification">
+        return <div className={"notification " + this.props.notification.type}>
             {this.props.notification.message}
             <div className="button" onClick={() => this.props.deleteNotification(this.props.index)}>X</div>
         </div>

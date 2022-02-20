@@ -112,13 +112,22 @@ export class BoardData {
     }
   }
   
-  public submit() : {correct : boolean, letters? : LetterData[]} {
+  public submit() : {correct : boolean, gameover : boolean, unknown : boolean, letters? : LetterData[]} {
     if(this.current.word.length < 5)
     {
       let correct : boolean = false;
+      let gameover : boolean = false;
+      let unknown : boolean = false;
       console.log("Too short");
       this.trySendWrong();
-      return {correct};
+      return {correct, gameover, unknown};
+    }
+    else if(dictionary.all_words.indexOf(this.current.word) == -1){
+      //not known.
+      let correct : boolean = false;
+      let gameover : boolean = false;
+      let unknown : boolean = true;
+      return {correct, gameover, unknown};
     }
 
     console.log("Submit");
@@ -132,7 +141,12 @@ export class BoardData {
     }
     this.trySendUpdate(guessData);
 
-    return data;
+    const correct = data.correct;
+    const letters = data.letters;
+    const gameover = this.index > 5;
+    const unknown = false;
+
+    return {correct, gameover, unknown, letters};
   }
 
   checkWord(answer : string, word : string) : {correct : boolean, letters : LetterData[]} {
@@ -243,8 +257,20 @@ function App() {
     const data = board.submit();
     if(data.correct){
       let _list : NotificationData[] = [];
-      _list.push(new NotificationData("WIN!", NotificationType.Success));
+      _list.push(new NotificationData("Gewonnen!", NotificationType.Success));
       setNotifications(_list);
+      return;
+    }
+    if(data.gameover) {
+      let _list : NotificationData[] = [];
+      _list.push(new NotificationData("Verloren!", NotificationType.Error));
+      setNotifications(_list);
+      return;
+    }
+    if(data.unknown) {
+      let _list : NotificationData[] = [];
+      _list.push(new NotificationData("Woord niet bekend.", NotificationType.Error));
+      setNotifications(_list); 
     }
 
     setInteraction(true);
