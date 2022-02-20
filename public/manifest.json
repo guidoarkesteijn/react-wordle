@@ -1,6 +1,6 @@
 {
-  "short_name": "Guido's Wordle",
-  "name": "Guido's Wordle Clone in first time React.",
+  "short_name": "Gordle",
+  "name": "Guido's Gordle",
   "icons": [
     {
       "src": "favicon.ico",
