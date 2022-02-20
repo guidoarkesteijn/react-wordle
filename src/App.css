@@ -124,6 +124,7 @@ section {
   min-width: 25%;
   max-width: 75%;
   white-space: pre-wrap;
+  border: var(--border-width) solid var(--color-notification-border);
 }
 
 .notification.error {
