@@ -122,7 +122,7 @@ export class BoardData {
       this.trySendWrong();
       return {correct, gameover, unknown};
     }
-    else if(dictionary.all_words.indexOf(this.current.word) == -1){
+    else if(dictionary.all_words.indexOf(this.current.word) === -1){
       //not known.
       let correct : boolean = false;
       let gameover : boolean = false;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { BoardData, GuessData } from "../App";
 import Notifications, { NotificationData } from "./Notifications";
 import Row from "./Row";

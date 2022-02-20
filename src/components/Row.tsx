@@ -1,5 +1,5 @@
 import React from "react";
-import { GuessData, LetterData, State } from "../App";
+import { GuessData, LetterData } from "../App";
 import Tile from "./Tile";
 
 interface IProps {
