@@ -313,7 +313,6 @@ function App() {
           continue;
         }
 
-        console.log(element);
         keys.current.set(element.letter, element.state);
       }
     }
