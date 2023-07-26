@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import './App.css';
 import Board from './components/Board';
 import Header from './components/Header';
@@ -12,6 +12,20 @@ export enum State {
   Wrong = "wrong",
   Location = "location",
   Correct = "correct"
+}
+
+export class ResultData {
+  correct : boolean;
+  gameover : boolean;
+  unknown : boolean;
+  letters? : LetterData[];
+
+  constructor(correct : boolean, gameover : boolean, unknown : boolean, letters? : LetterData[]) {
+    this.correct = correct;  
+    this.gameover = gameover;
+    this.unknown = unknown;
+    this.letters = letters;
+  }
 }
 
 export class LetterData {
@@ -112,7 +126,7 @@ export class BoardData {
     }
   }
   
-  public submit() : {correct : boolean, gameover : boolean, unknown : boolean, letters? : LetterData[]} {
+  public submit() : ResultData {
     if(this.current.word.length < 5)
     {
       let correct : boolean = false;
@@ -120,14 +134,14 @@ export class BoardData {
       let unknown : boolean = false;
       console.log("Too short");
       this.trySendWrong();
-      return {correct, gameover, unknown};
+      return new ResultData(correct, gameover, unknown);
     }
     else if(dictionary.all_words.indexOf(this.current.word) === -1){
       //not known.
       let correct : boolean = false;
       let gameover : boolean = false;
       let unknown : boolean = true;
-      return {correct, gameover, unknown};
+      return new ResultData(correct, gameover, unknown);
     }
 
     console.log("Submit");
@@ -146,7 +160,7 @@ export class BoardData {
     const gameover = this.index > 5;
     const unknown = false;
 
-    return {correct, gameover, unknown, letters};
+    return new ResultData(correct, gameover, unknown, letters);
   }
 
   checkWord(answer : string, word : string) : {correct : boolean, letters : LetterData[]} {
@@ -213,11 +227,12 @@ function App() {
   const [board, setBoard] = useState<BoardData>(new BoardData(answer, 6, 0));
   const [notifications, setNotifications] = useState<NotificationData[]>([]);
   const [interactable, setInteraction] = useState(true);
+  const keys = useRef(new Map<string,string>());
 
-  board.update = update;
-  board.wrong = wrong;
+  board.update = onUpdate;
+  board.wrong = onWrong;
 
-  function wrong() {
+  function onWrong() {
     const _list = notifications.slice();
     _list.push( new NotificationData("Woord niet lang genoeg.", NotificationType.Error));
     setNotifications(_list);
@@ -255,6 +270,8 @@ function App() {
     
     setInteraction(false);
     const data = board.submit();
+    setKeys(data);
+
     if(data.correct){
       let _list : NotificationData[] = [];
       _list.push(new NotificationData("Gewonnen!", NotificationType.Success));
@@ -276,7 +293,24 @@ function App() {
     setInteraction(true);
   }
 
-  function update(guess : GuessData)
+  function setKeys(data: ResultData)
+  {
+    if(data.letters !== undefined)
+    {
+      for (let index = 0; index < data.letters.length; index++) {
+        const element = data.letters[index];
+        if(keys.current.get(element.letter) !== undefined && keys.current.get(element.letter) === "correct")
+        {
+          continue;
+        }
+
+        console.log(element);
+        keys.current.set(element.letter, element.state);
+      }
+    }
+  }
+
+  function onUpdate(guess : GuessData)
   {
     let guesses = board.guesses;
     const current = board.index;
@@ -289,7 +323,7 @@ function App() {
     <div className="container">
       <Header />
       <Board board={board} notifications={notifications} deleteNotification={deleteNotification} />
-      <Keyboard keyPressed={keyPressed} backspacePressed={backspacePressed} submitPressed={submit} />
+      <Keyboard keys={keys.current} keyPressed={keyPressed} backspacePressed={backspacePressed} submitPressed={submit} />
     </div>
   );
 }
