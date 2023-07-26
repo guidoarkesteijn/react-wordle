@@ -2,6 +2,7 @@ import React from "react";
 import Key from "./Key";
 
 interface IProps{
+    keys : Map<string,string>;
     keyPressed : (key : string) => void;
     backspacePressed : () => void;
     submitPressed : () => void;
@@ -16,7 +17,6 @@ class Keyboard extends React.Component<IProps> {
     }
 
     onHandleKeyDown = (event: globalThis.KeyboardEvent) => {
-        console.log("Pressed:" + event.key);
         if(event.key === 'Backspace')
         {
             this.props.backspacePressed();
@@ -34,37 +34,37 @@ class Keyboard extends React.Component<IProps> {
     render() {
         return <div className="keyboard">
             <div className="keyboard-row">
-                <Key letter="Q" keyPressed={this.props.keyPressed}/>
-                <Key letter="W" keyPressed={this.props.keyPressed}/>
-                <Key letter="E" keyPressed={this.props.keyPressed}/>
-                <Key letter="R" keyPressed={this.props.keyPressed}/>
-                <Key letter="T" keyPressed={this.props.keyPressed}/>
-                <Key letter="Y" keyPressed={this.props.keyPressed}/>
-                <Key letter="U" keyPressed={this.props.keyPressed}/>
-                <Key letter="I" keyPressed={this.props.keyPressed}/>
-                <Key letter="O" keyPressed={this.props.keyPressed}/>
-                <Key letter="P" keyPressed={this.props.keyPressed}/>
+                <Key state={this.props.keys.get("q")} letter="q" keyPressed={this.props.keyPressed}/>
+                <Key state={this.props.keys.get("w")} letter="w" keyPressed={this.props.keyPressed}/>
+                <Key state={this.props.keys.get("e")} letter="e" keyPressed={this.props.keyPressed}/>
+                <Key state={this.props.keys.get("r")} letter="r" keyPressed={this.props.keyPressed}/>
+                <Key state={this.props.keys.get("t")} letter="t" keyPressed={this.props.keyPressed}/>
+                <Key state={this.props.keys.get("y")} letter="y" keyPressed={this.props.keyPressed}/>
+                <Key state={this.props.keys.get("u")} letter="u" keyPressed={this.props.keyPressed}/>
+                <Key state={this.props.keys.get("i")} letter="i" keyPressed={this.props.keyPressed}/>
+                <Key state={this.props.keys.get("o")} letter="o" keyPressed={this.props.keyPressed}/>
+                <Key state={this.props.keys.get("p")} letter="p" keyPressed={this.props.keyPressed}/>
             </div>
             <div className="keyboard-row">
-                <Key letter="A" keyPressed={this.props.keyPressed}/>
-                <Key letter="S" keyPressed={this.props.keyPressed}/>
-                <Key letter="D" keyPressed={this.props.keyPressed}/>
-                <Key letter="F" keyPressed={this.props.keyPressed}/>
-                <Key letter="G" keyPressed={this.props.keyPressed}/>
-                <Key letter="H" keyPressed={this.props.keyPressed}/>
-                <Key letter="J" keyPressed={this.props.keyPressed}/>
-                <Key letter="K" keyPressed={this.props.keyPressed}/>
-                <Key letter="L" keyPressed={this.props.keyPressed}/>
+                <Key state={this.props.keys.get("a")} letter="a" keyPressed={this.props.keyPressed}/>
+                <Key state={this.props.keys.get("s")} letter="s" keyPressed={this.props.keyPressed}/>
+                <Key state={this.props.keys.get("d")} letter="d" keyPressed={this.props.keyPressed}/>
+                <Key state={this.props.keys.get("f")} letter="f" keyPressed={this.props.keyPressed}/>
+                <Key state={this.props.keys.get("g")} letter="g" keyPressed={this.props.keyPressed}/>
+                <Key state={this.props.keys.get("h")} letter="h" keyPressed={this.props.keyPressed}/>
+                <Key state={this.props.keys.get("j")} letter="j" keyPressed={this.props.keyPressed}/>
+                <Key state={this.props.keys.get("k")} letter="k" keyPressed={this.props.keyPressed}/>
+                <Key state={this.props.keys.get("l")} letter="l" keyPressed={this.props.keyPressed}/>
             </div>
             <div className="keyboard-row">
                 <Key letter="<-" backspacePressed={this.props.backspacePressed}/>
-                <Key letter="Z" keyPressed={this.props.keyPressed}/>
-                <Key letter="X" keyPressed={this.props.keyPressed}/>
-                <Key letter="C" keyPressed={this.props.keyPressed}/>
-                <Key letter="V" keyPressed={this.props.keyPressed}/>
-                <Key letter="B" keyPressed={this.props.keyPressed}/>
-                <Key letter="N" keyPressed={this.props.keyPressed}/>
-                <Key letter="M" keyPressed={this.props.keyPressed}/>
+                <Key state={this.props.keys.get("z")} letter="z" keyPressed={this.props.keyPressed}/>
+                <Key state={this.props.keys.get("x")} letter="x" keyPressed={this.props.keyPressed}/>
+                <Key state={this.props.keys.get("c")} letter="c" keyPressed={this.props.keyPressed}/>
+                <Key state={this.props.keys.get("v")} letter="v" keyPressed={this.props.keyPressed}/>
+                <Key state={this.props.keys.get("b")} letter="b" keyPressed={this.props.keyPressed}/>
+                <Key state={this.props.keys.get("n")} letter="n" keyPressed={this.props.keyPressed}/>
+                <Key state={this.props.keys.get("m")} letter="m" keyPressed={this.props.keyPressed}/>
                 <Key letter="Enter" submitPressed={this.props.submitPressed}/>
             </div>
         </div>

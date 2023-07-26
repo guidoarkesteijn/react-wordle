@@ -97,11 +97,11 @@ section {
 }
 
 .key:hover {
-  background-color: var(--color-key-hover);
+  filter: brightness(var(--color-key-darkness));
 }
 
 .key:active {
-  background-color: hsl(0, 0%, 95%);
+  filter: brightness(var(--color-key-brightness));
 }
 
 .notifications {
