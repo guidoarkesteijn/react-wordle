@@ -293,6 +293,15 @@ function App() {
     setInteraction(true);
   }
 
+  function onUpdate(guess : GuessData)
+  {
+    let guesses = board.guesses;
+    const current = board.index;
+    guesses[guess.index] = guess;
+    let newBoard : BoardData = new BoardData(answer, -1, current, guesses);
+    setBoard(newBoard);
+  }
+
   function setKeys(data: ResultData)
   {
     if(data.letters !== undefined)
@@ -308,15 +317,6 @@ function App() {
         keys.current.set(element.letter, element.state);
       }
     }
-  }
-
-  function onUpdate(guess : GuessData)
-  {
-    let guesses = board.guesses;
-    const current = board.index;
-    guesses[guess.index] = guess;
-    let newBoard : BoardData = new BoardData(answer, -1, current, guesses);
-    setBoard(newBoard);
   }
 
   return (
