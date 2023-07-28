@@ -308,7 +308,14 @@ function App() {
     {
       for (let index = 0; index < data.letters.length; index++) {
         const element = data.letters[index];
-        if(keys.current.get(element.letter) !== undefined && keys.current.get(element.letter) === "correct")
+        const current = keys.current.get(element.letter);
+
+        if(current !== undefined && (current === "correct"))
+        {
+          continue;
+        }
+
+        if(current !== undefined && current === "location" && element.state !== "correct")
         {
           continue;
         }
