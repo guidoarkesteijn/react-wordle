@@ -41,7 +41,7 @@ class Key extends React.Component<IProps> {
             className += " " + this.props.state;
         }
 
-        return <div className={className} onClick={this.onHandleKeyDown}>{this.props.letter}</div>
+        return <div id={this.props.letter === '<-' ? 'Backspace' : this.props.letter } className={className} onClick={this.onHandleKeyDown}>{this.props.letter}</div>
     }
 }
 
