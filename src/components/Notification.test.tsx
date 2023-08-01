@@ -1,6 +1,6 @@
 import { test } from "vitest";
 import { NotificationData, NotificationType } from "./Notifications";
-import { render } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import Notification from "./Notification";
 
 test('<Notification>', () => {
@@ -12,4 +12,8 @@ test('<Notification>', () => {
     let element = wrapper.container.querySelector("div");
     expect(element?.className).toBe("notification normal");
     expect(element?.childNodes[0].textContent).toBe(title);
+
+    
+    const button = wrapper.container.querySelector('.button');
+    fireEvent.click(button);
 });
