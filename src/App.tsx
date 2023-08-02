@@ -79,10 +79,6 @@ export class GuessData {
       }
     }
   }
-
-  getState(index : number) : State {
-    return this.letters[index].state;
-  }
 }
 
 export class BoardData {
@@ -203,10 +199,6 @@ export class BoardData {
     }
 
     return {correct, letters};
-  }
-
-  getGuess() : GuessData {
-    return this.guesses[this.index];
   }
 
   trySendUpdate(current : GuessData) {
