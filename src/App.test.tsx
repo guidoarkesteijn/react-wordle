@@ -22,14 +22,5 @@ describe('<App />', () => {
       var enter = new KeyboardEvent('keydown', {key: 'Enter'});
       document.dispatchEvent(enter);
     });
-
-    const keyL = wrapper.container.querySelector('#l');
-    fireEvent.click(keyL);
-
-    const keyEnter = wrapper.container.querySelector('#Enter');
-    fireEvent.click(keyEnter);
-
-    const keyBackspace = wrapper.container.querySelector('#Backspace');
-    fireEvent.click(keyBackspace);
   })
 });

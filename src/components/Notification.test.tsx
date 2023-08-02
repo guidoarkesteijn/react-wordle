@@ -13,7 +13,10 @@ test('<Notification>', () => {
     expect(element?.className).toBe("notification normal");
     expect(element?.childNodes[0].textContent).toBe(title);
 
-    
     const button = wrapper.container.querySelector('.button');
-    fireEvent.click(button);
+    expect(button).not.toBeNull();
+    if(button !== null)
+    {
+        fireEvent.click(button);
+    }
 });
