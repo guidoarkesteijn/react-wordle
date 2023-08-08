@@ -1,4 +1,4 @@
-import { State } from "../App";
+import { State } from "../models/State";
 import Key from "./Key";
 import { render } from '@testing-library/react'
 
