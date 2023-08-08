@@ -9,5 +9,8 @@ export default defineConfig({
     globals: true,
     environment: 'happy-dom',
     setupFiles: ['src/setupTests.ts']
-  }
+  },
+  define: {
+    APP_VERSION: JSON.stringify(process.env.npm_package_version),
+  },
 })
