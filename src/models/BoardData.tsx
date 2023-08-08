@@ -108,6 +108,8 @@ export class BoardData {
         continue;
       }
       const location = rest.indexOf(word[index]);
+      console.log(word[index]);
+
       if(location > -1)
       {
         rest = rest.replace(word[index], "");
