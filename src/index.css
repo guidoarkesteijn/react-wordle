@@ -8,7 +8,7 @@
   --color-border: hsl(0, 0%, 50%);
   --color-correct: hsl(115, 29%, 43%);
   --color-location: hsl(49, 51%, 47%);
-  --color-wrong: hsl(240, 2%, 60%);
+  --color-wrong: hsl(240, 2%, 50%);
   --color-border-active: hsl(0, 0%, 0%);
   --color-key: hsl(0, 0%, 95%);
   --color-notification-type-error: rgb(180, 34, 34);
@@ -28,7 +28,6 @@
       --color-notification-border: hsl(0, 0%, 100%);
       --color-border: hsl(0, 0%, 100%);
       --color-key: hsl(0, 0%, 18%);
-      --color-wrong: hsl(240, 2%, 30%);
       --color-border-active: hsl(0, 0%, 50%);
   }
 }

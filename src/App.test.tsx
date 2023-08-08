@@ -16,8 +16,23 @@ describe('<App />', () => {
       var event = new KeyboardEvent('keydown', {key: 'a'});
       document.dispatchEvent(event);
 
+      var event = new KeyboardEvent('keydown', {key: 'a'});
+      document.dispatchEvent(event);
+
+      var event = new KeyboardEvent('keydown', {key: 'r'});
+      document.dispatchEvent(event);
+
+      var event = new KeyboardEvent('keydown', {key: 'd'});
+      document.dispatchEvent(event);
+
+      var event = new KeyboardEvent('keydown', {key: 'e'});
+      document.dispatchEvent(event);
+
       var backspace = new KeyboardEvent('keydown', {key: 'Backspace'});
       document.dispatchEvent(backspace);
+
+      var event = new KeyboardEvent('keydown', {key: 'e'});
+      document.dispatchEvent(event);
 
       var enter = new KeyboardEvent('keydown', {key: 'Enter'});
       document.dispatchEvent(enter);
