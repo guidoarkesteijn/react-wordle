@@ -3,15 +3,28 @@ import { GuessData } from "./GuessData";
 import { LetterData } from "./LetterData";
 import { State } from "./State";
 
+test('Too short - submit', () => {
+    const guesses : GuessData[] = [];
+    const letters : LetterData[] = [];
+
+    letters.push(new LetterData(0, 'b', State.Correct))
+    letters.push(new LetterData(1, 'a', State.Correct))
+
+    guesses.push(new GuessData(0, 'ba', letters));
+
+    const board : BoardData = new BoardData('paard', 0, 0, guesses);
+    board.submit();
+});
+
 test('Wrong Letter - submit', () => {
     const guesses : GuessData[] = [];
     const letters : LetterData[] = [];
 
     letters.push(new LetterData(0, 'b', State.Correct))
-    letters.push(new LetterData(0, 'a', State.Correct))
-    letters.push(new LetterData(0, 'a', State.Correct))
-    letters.push(new LetterData(0, 'r', State.Location))
-    letters.push(new LetterData(0, 'd', State.Location))
+    letters.push(new LetterData(1, 'a', State.Correct))
+    letters.push(new LetterData(2, 'a', State.Correct))
+    letters.push(new LetterData(3, 'r', State.Location))
+    letters.push(new LetterData(4, 'd', State.Location))
 
     guesses.push(new GuessData(0, 'baard', letters));
 
@@ -24,10 +37,10 @@ test('Location Letter - submit', () => {
     const letters : LetterData[] = [];
 
     letters.push(new LetterData(0, 'a', State.Correct))
-    letters.push(new LetterData(0, 'a', State.Correct))
-    letters.push(new LetterData(0, 'p', State.Correct))
-    letters.push(new LetterData(0, 'j', State.Location))
-    letters.push(new LetterData(0, 'e', State.Location))
+    letters.push(new LetterData(1, 'a', State.Correct))
+    letters.push(new LetterData(2, 'p', State.Correct))
+    letters.push(new LetterData(3, 'j', State.Location))
+    letters.push(new LetterData(4, 'e', State.Location))
 
     guesses.push(new GuessData(0, 'aapje', letters));
 
@@ -40,10 +53,10 @@ test('Unknown Word - Submit', () => {
     const letters : LetterData[] = [];
 
     letters.push(new LetterData(0, 'b', State.Correct))
-    letters.push(new LetterData(0, 'r', State.Correct))
-    letters.push(new LetterData(0, 'r', State.Correct))
-    letters.push(new LetterData(0, 'r', State.Location))
-    letters.push(new LetterData(0, 'd', State.Location))
+    letters.push(new LetterData(1, 'r', State.Correct))
+    letters.push(new LetterData(2, 'r', State.Correct))
+    letters.push(new LetterData(3, 'r', State.Location))
+    letters.push(new LetterData(4, 'd', State.Location))
 
     guesses.push(new GuessData(0, 'brrrd', letters));
 

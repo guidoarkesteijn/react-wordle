@@ -36,6 +36,15 @@ describe('<App />', () => {
 
       var enter = new KeyboardEvent('keydown', {key: 'Enter'});
       document.dispatchEvent(enter);
+      
+      var event = new KeyboardEvent('keydown', {key: 'a'});
+      document.dispatchEvent(event);
+
+      var event = new KeyboardEvent('keydown', {key: 'r'});
+      document.dispatchEvent(event);
+
+      var enter = new KeyboardEvent('keydown', {key: 'Enter'});
+      document.dispatchEvent(enter);
     });
   })
 });
