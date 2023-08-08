@@ -27,15 +27,13 @@ export class GuessData {
       {
         for (let index = 0; index < word.length; index++) {
           const letter = word[index];
-          let state = State.Unknown;
           if(letters !== undefined && index < letters.length)
           {
             this.letters[index] = letters[index];
           }
           else if(letter !== "")
           {
-            state = State.Active;
-            this.letters[index] = new LetterData(index, letter, state);
+            this.letters[index] = new LetterData(index, letter,  State.Active);
           }
         }
       }
