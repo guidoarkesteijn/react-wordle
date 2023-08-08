@@ -1,5 +1,5 @@
 import React from "react";
-import { State } from "../App";
+import { State } from "../models/State";
 
 interface IProps {
     index : number;

@@ -1,7 +1,8 @@
 import React from "react";
-import { BoardData, GuessData } from "../App";
 import Notifications, { NotificationData } from "./Notifications";
 import Row from "./Row";
+import { BoardData } from "../models/BoardData";
+import { GuessData } from "../models/GuessData";
 
 interface IProps {
     board : BoardData;

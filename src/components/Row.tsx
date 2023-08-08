@@ -1,6 +1,7 @@
 import React from "react";
-import { GuessData, LetterData } from "../App";
 import Tile from "./Tile";
+import { LetterData } from "../models/LetterData";
+import { GuessData } from "../models/GuessData";
 
 interface IProps {
     guess : GuessData;
