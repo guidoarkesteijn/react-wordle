@@ -10,7 +10,7 @@ describe('<App />', () => {
 
     // Get by h1
     const h1 = wrapper.container.querySelector('h1')
-    expect(h1?.textContent).toBe('Gordle')
+    expect(h1?.textContent).toMatch(/Gordle v(\d+\.)?(\d+\.)?(\*|\d+)$/)
 
     act(() => {
       var event = new KeyboardEvent('keydown', {key: 'a'});
