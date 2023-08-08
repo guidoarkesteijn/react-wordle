@@ -14,7 +14,6 @@
   --color-notification-type-error: rgb(180, 34, 34);
   --color-notification-type-success: var(--color-correct);
   --color-notification-border: hsl(0, 0%, 0%);
-
   --border-width: 0.05em;
   
   --color-key-darkness: 0.85;

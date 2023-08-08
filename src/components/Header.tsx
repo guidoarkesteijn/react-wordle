@@ -2,7 +2,9 @@ import React from "react";
 
 class Header extends React.Component {
     render(): React.ReactNode {
-        return <h1 className="header">Gordle</h1>
+        return <div>
+            <h1 className="header">Gordle <span>v{APP_VERSION}</span></h1>
+        </div>
     }
 }
 
