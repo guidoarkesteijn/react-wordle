@@ -11,9 +11,9 @@ import { useKeys } from './hooks/useKeys';
 
 function App() {
   const { answer, board, setBoard } = useGameData();
-  const { keys, setKeys} = useKeys();
-  const [notifications, setNotifications] = useState<NotificationData[]>([]);
-  const [interactable, setInteraction] = useState(true);
+  const { keys, setKeys } = useKeys();
+  const [ notifications, setNotifications ] = useState<NotificationData[]>([]);
+  const [ interactable, setInteraction ] = useState(true);
 
   board.update = onUpdate;
   board.wrong = onWrong;
