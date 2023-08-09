@@ -55,15 +55,14 @@ export class BoardData {
       this.trySendWrong();
       return new ResultData(correct, gameover, unknown);
     }
-    else if(dictionary.all_words.indexOf(this.current.word) === -1){
+
+    if(!dictionary.all_words.includes(this.current.word)){
       //not known.
       let correct : boolean = false;
       let gameover : boolean = false;
       let unknown : boolean = true;
       return new ResultData(correct, gameover, unknown);
     }
-
-    console.log("Submit");
 
     const data = this.checkWord(this.answer, this.current.word);
     const guessData = new GuessData(this.index, this.current.word, data.letters);
