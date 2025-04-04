@@ -1,6 +1,6 @@
 {
   "name": "react-gordle",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "homepage": "https://guidoarkesteijn.com/react-wordle",
   "private": true,
   "type": "module",
@@ -27,7 +27,7 @@
     "gh-pages": "^5.0.0",
     "happy-dom": "^15.11.3",
     "typescript": "^5.1.6",
-    "vite": "^6.2.4",
+    "vite": "^6.2.5",
     "vitest": "^3.1.1",
     "web-vitals": "^3.4.0"
   }
